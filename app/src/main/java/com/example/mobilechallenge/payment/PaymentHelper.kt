@@ -8,8 +8,8 @@ import kotlinx.coroutines.withContext
 
 class PaymentHelper {
     companion object {
-        private const val SUCCESS_URL = "https://success.com"
-        private const val FAILURE_URL = "https://failure.com"
+        const val SUCCESS_URL = "https://success.com"
+        const val FAILURE_URL = "https://failure.com"
         private val api: ServerApi by lazy {
             ServerApi.create()
         }
