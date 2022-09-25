@@ -9,4 +9,12 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="expiry_date_hint">MM/YY</string>
+    <string name="expiry_date_label">Expiry Date</string>
+    <string name="card_number_hint">Card number</string>
+    <string name="card_number_label">Card Number</string>
+    <string name="cvv_label">Cvv</string>
+    <string name="cvc_hint">CVC</string>
+    <string name="pay_button_text">Pay</string>
+    <string name="invalid_input_error">Card info is invalid. Please check it</string>
 </resources>

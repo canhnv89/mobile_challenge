@@ -1,109 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:fitsSystemWindows="true"
-    tools:context="com.example.mobilechallenge.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.mobilechallenge.viewmodel.MainViewModel" />
+
+        <import type="android.view.View" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="com.example.mobilechallenge.MainActivity">
 
-        <TextView
-            android:id="@+id/card_number_text"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Card Number"
-            android:textColor="@android:color/black"
+            android:layout_margin="@dimen/edit_text_margin_top"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/cardNumberEditText"
-            style="@style/EditText"
-            android:layout_width="match_parent"
-            android:background="@drawable/bg_card_number_edit_text"
-            android:drawableRight="@drawable/ic_card_number"
-            android:hint="Card number"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_number_text" />
+            <TextView
+                android:id="@+id/card_number_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/card_number_label"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/card_date_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Expiry Date"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/card_cvc_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardNumberEditText" />
+            <EditText
+                android:id="@+id/cardNumberEditText"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:background="@drawable/bg_card_number_edit_text"
+                android:drawableEnd="@drawable/ic_card_number"
+                android:hint="@string/card_number_hint"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_number_text" />
 
-        <EditText
-            android:id="@+id/cardDateEditText"
-            style="@style/EditText"
-            android:layout_width="0dp"
-            android:layout_marginRight="-0.25dp"
-            android:background="@drawable/bg_card_date_edit_text"
-            android:drawableRight="@drawable/ic_card_date"
-            android:hint="MM/YY"
-            android:imeOptions="actionNext"
-            android:inputType="date"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toStartOf="@id/cardCVCEditText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_date_text" />
+            <TextView
+                android:id="@+id/card_date_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_view_margin_top"
+                android:text="@string/expiry_date_label"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/card_cvc_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardNumberEditText" />
 
-        <TextView
-            android:id="@+id/card_cvc_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Cvv"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/card_date_text"
-            app:layout_constraintStart_toStartOf="@id/cardCVCEditText"
-            app:layout_constraintTop_toBottomOf="@+id/cardNumberEditText" />
+            <EditText
+                android:id="@+id/cardDateEditText"
+                style="@style/EditText"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/edit_text_margin_top"
+                android:background="@drawable/bg_card_date_edit_text"
+                android:drawableEnd="@drawable/ic_card_date"
+                android:hint="@string/expiry_date_hint"
+                android:imeOptions="actionNext"
+                android:inputType="date"
+                app:layout_constraintEnd_toStartOf="@id/cardCVCEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_date_text" />
 
-        <EditText
-            android:id="@+id/cardCVCEditText"
-            style="@style/EditText"
-            android:layout_width="0dp"
-            android:background="@drawable/bg_card_cvc_edit_text"
-            android:drawableRight="@drawable/ic_card_cvc"
-            android:hint="CVC"
-            android:layout_marginStart="10dp"
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cardDateEditText"
-            app:layout_constraintTop_toBottomOf="@+id/card_cvc_text" />
+            <TextView
+                android:id="@+id/card_cvc_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_view_margin_top"
+                android:text="@string/cvv_label"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/card_date_text"
+                app:layout_constraintStart_toStartOf="@id/cardCVCEditText"
+                app:layout_constraintTop_toBottomOf="@+id/cardNumberEditText" />
 
-        <Button
-            android:id="@+id/payButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/pay_button_height"
-            android:layout_marginTop="@dimen/pay_button_margin_top"
-            android:text="Pay"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardCVCEditText" />
+            <EditText
+                android:id="@+id/cardCVCEditText"
+                style="@style/EditText"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/edit_text_margin_top"
+                android:background="@drawable/bg_card_cvc_edit_text"
+                android:drawableEnd="@drawable/ic_card_cvc"
+                android:hint="@string/cvc_hint"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardDateEditText"
+                app:layout_constraintTop_toBottomOf="@+id/card_cvc_text" />
+
+            <TextView
+                android:id="@+id/error_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:text="@string/invalid_input_error"
+                android:textColor="@android:color/holo_red_light"
+                android:visibility="@{viewModel.isCardValid()? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardCVCEditText"
+                tools:text="@string/invalid_input_error" />
+
+            <Button
+                android:id="@+id/payButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pay_button_height"
+                android:layout_marginTop="@dimen/pay_button_margin_top"
+                android:text="@string/pay_button_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardCVCEditText" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

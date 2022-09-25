@@ -8,6 +8,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    dataBinding {
+        enabled true
+    }
     defaultConfig {
         applicationId "com.example.mobilechallenge"
         minSdk 29
