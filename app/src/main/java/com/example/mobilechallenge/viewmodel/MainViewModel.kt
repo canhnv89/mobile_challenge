@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mobilechallenge.R
 import com.example.mobilechallenge.api.ApiResult
+import com.example.mobilechallenge.api.ApiStatus
+import com.example.mobilechallenge.constant.FragmentNavigator
 import com.example.mobilechallenge.model.CardInfo
 import com.example.mobilechallenge.payment.PaymentHelper
 
@@ -14,6 +16,8 @@ class MainViewModel : ViewModel() {
     private var cardInfo: CardInfo? = null
     private val isCardValidLiveData = MutableLiveData<Boolean>().apply { postValue(true) }
     private val isUiBusyLiveData = MutableLiveData<Boolean>().apply { postValue(false) }
+    private val navigator = MutableLiveData<FragmentNavigator>()
+    private var payConfirmUrl: String? = null
 
     companion object {
         private const val TAG = "MainViewModel"
@@ -36,6 +40,8 @@ class MainViewModel : ViewModel() {
         return isUiBusyLiveData
     }
 
+    fun getPayConfirmUrl() = payConfirmUrl
+
     suspend fun submitPay(context: Context): ApiResult<String> {
         val submitCardInfo = cardInfo
         return if (submitCardInfo == null || !submitCardInfo.isValid()) {
@@ -45,8 +51,30 @@ class MainViewModel : ViewModel() {
             isUiBusyLiveData.postValue(true)
             val result = PaymentHelper.submitPay(submitCardInfo)
             Log.i(TAG, "response Url = $result")
+            payConfirmUrl = if (result.status == ApiStatus.SUCCESS && result.data != null) {
+                result.data
+            } else {
+                null
+            }
             isUiBusyLiveData.postValue(false)
             result
         }
+    }
+
+    fun getNavigatorLiveData(): LiveData<FragmentNavigator> {
+        return navigator
+    }
+
+
+    fun loadConfirmFragment() {
+        navigator.postValue(FragmentNavigator.PAY_CONFIRM_FRAGMENT)
+    }
+
+    fun loadSuccessFragment() {
+        navigator.postValue(FragmentNavigator.SUCCESS_FRAGMENT)
+    }
+
+    fun loadFailureFragment() {
+        navigator.postValue(FragmentNavigator.FAILURE_FRAGMENT)
     }
 }
