@@ -20,4 +20,8 @@
     <string name="invalid_input_error">Card info is invalid. Please check it</string>
     <string name="pay_error_message">Something wrong happened: %s</string>
     <string name="pay_error_message_card_invalid">Card info is null or not valid</string>
+    <string name="payment_completed">Payment Completed :)</string>
+    <string name="payment_failed">Payment failed :(</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
