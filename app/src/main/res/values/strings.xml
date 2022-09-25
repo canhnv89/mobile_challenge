@@ -16,5 +16,8 @@
     <string name="cvv_label">Cvv</string>
     <string name="cvc_hint">CVC</string>
     <string name="pay_button_text">Pay</string>
+    <string name="pay_button_busy_text">Processing...</string>
     <string name="invalid_input_error">Card info is invalid. Please check it</string>
+    <string name="pay_error_message">Something wrong happened: %s</string>
+    <string name="pay_error_message_card_invalid">Card info is null or not valid</string>
 </resources>
