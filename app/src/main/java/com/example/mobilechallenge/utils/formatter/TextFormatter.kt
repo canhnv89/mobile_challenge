@@ -7,15 +7,28 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 
+fun EditText.getPureNumber(): String {
+    return TextFormatter.getPureNumber(text.toString())
+}
+
+fun Editable.getPureNumber(): String {
+    return TextFormatter.getPureNumber(toString())
+}
+
 abstract class TextFormatter(val editText: EditText) {
-    val nonDigits: Regex
-        get() = Regex("[^\\d]")
+
     var current = " "
     var maxLength = 0
 
     companion object {
         const val VALID_COLOR = Color.BLACK
         const val ERROR_COLOR = Color.RED
+        private val nonDigits: Regex
+            get() = Regex("[^\\d]")
+
+        fun getPureNumber(s: String): String {
+            return s.replace(nonDigits, "")
+        }
     }
 
     init {
@@ -25,7 +38,7 @@ abstract class TextFormatter(val editText: EditText) {
 
             override fun afterTextChanged(s: Editable?) {
                 format(s)
-                if (s != null && getPureNumber(s).length == maxLength) {
+                if (s != null && s.getPureNumber().length == maxLength) {
                     setColorByValidity()
                 } else {
                     editText.setTextColor(VALID_COLOR)
@@ -36,7 +49,7 @@ abstract class TextFormatter(val editText: EditText) {
             if (!hasFocus) {
                 setColorByValidity()
             } else {
-                if (getPureNumber(editText.text).length < maxLength) {
+                if (editText.getPureNumber().length < maxLength) {
                     editText.setTextColor(VALID_COLOR)
                 }
             }
@@ -54,7 +67,7 @@ abstract class TextFormatter(val editText: EditText) {
     protected fun format(s: Editable?, textPattern: TextPattern?) {
         s?.let {
             if (s.toString() != current) {
-                val userInput = getPureNumber(s)
+                val userInput = getPureNumber(s.toString())
                 if (userInput.isEmpty() || textPattern == null) {
                     current = userInput
                     return
@@ -71,7 +84,7 @@ abstract class TextFormatter(val editText: EditText) {
         maxLength = textPattern?.length ?: 0
     }
 
-    fun splitTextByPattern(input: String, textPattern: TextPattern): String {
+    private fun splitTextByPattern(input: String, textPattern: TextPattern): String {
         val sb = StringBuilder()
         var from = 0
         for (i in textPattern.pattern.indices) {
@@ -87,9 +100,5 @@ abstract class TextFormatter(val editText: EditText) {
             }
         }
         return sb.toString()
-    }
-
-    protected fun getPureNumber(s: Editable): String {
-        return s.toString().replace(nonDigits, "")
     }
 }

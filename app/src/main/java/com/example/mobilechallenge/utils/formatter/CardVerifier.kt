@@ -1,13 +1,32 @@
-package com.example.mobilechallenge.utils
+package com.example.mobilechallenge.utils.formatter
+
+import java.util.*
 
 class CardVerifier {
     companion object {
         // Return true if the card number is valid
-        fun isValid(cardNumber: Long): Boolean {
+        fun isValidCardNum(cardNum: String): Boolean {
+            if (cardNum.isEmpty()) return false
+            val cardNumber = cardNum.toLong()
             return (getSize(cardNumber) in 13..16 && (prefixMatch(cardNumber, 4)
                     || prefixMatch(cardNumber, 5) || prefixMatch(cardNumber, 37)
                     || prefixMatch(cardNumber, 6))
                     && (sumDoubleEven(cardNumber) + sumOdd(cardNumber)) % 10 == 0)
+        }
+
+        fun isValidExpiryDate(expiryDate: String?): Boolean {
+            if (expiryDate.isNullOrEmpty()) return false
+            val parts = expiryDate.split(ExpiryDateFormatter.textPattern.separator)
+            if (parts.size < ExpiryDateFormatter.textPattern.pattern.size) return false
+            val month = Integer.parseInt(parts[0])
+            val year = Integer.parseInt(parts[1])
+            val currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1
+            val currentYear = Calendar.getInstance().get(Calendar.YEAR) % 100
+            return month in 1..12 && (year > currentYear || (year == currentYear && currentMonth <= month))
+        }
+
+        fun isCvvValid(cvv: String): Boolean {
+            return cvv.isNotBlank() && cvv.length == CvvFormatter.textPattern.length
         }
 
         // Get the result from Step 2

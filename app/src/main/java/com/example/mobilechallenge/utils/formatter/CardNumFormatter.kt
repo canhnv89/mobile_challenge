@@ -2,7 +2,6 @@ package com.example.mobilechallenge.utils.formatter
 
 import android.text.Editable
 import android.widget.EditText
-import com.example.mobilechallenge.utils.CardVerifier
 
 class CardNumFormatter(editText: EditText) : TextFormatter(editText) {
 
@@ -30,7 +29,6 @@ class CardNumFormatter(editText: EditText) : TextFormatter(editText) {
     override fun isValid(s: Editable?): Boolean {
         if (s.isNullOrEmpty()) return false
         if (patternMap[s[0]] == null) return false
-        val cardNum = getPureNumber(s).toLong()
-        return CardVerifier.isValid(cardNum)
+        return CardVerifier.isValidCardNum(s.getPureNumber())
     }
 }

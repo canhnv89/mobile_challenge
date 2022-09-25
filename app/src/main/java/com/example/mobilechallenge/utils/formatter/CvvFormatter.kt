@@ -13,6 +13,6 @@ class CvvFormatter(editText: EditText) : TextFormatter(editText) {
     }
 
     override fun isValid(s: Editable?): Boolean {
-        return !s.isNullOrBlank() && s.length == textPattern.length
+        return CardVerifier.isCvvValid(s.toString())
     }
 }
