@@ -72,7 +72,6 @@ class PayFragment : Fragment() {
                 val result = viewModel.submitPay(requireActivity())
                 if (result.status == ApiStatus.SUCCESS && result.data != null) {
                     //Success path
-                    //viewModel.loadConfirmFragment()
                     findNavController().navigate(R.id.action_payFragment_to_payConfirm3dsFragment)
                 } else {
                     //Error path
@@ -85,11 +84,5 @@ class PayFragment : Fragment() {
     private fun showErrorDialog(message: String?) {
         AlertDialog.Builder(requireActivity())
             .setMessage(getString(R.string.pay_error_message, message)).show()
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            PayFragment()
     }
 }

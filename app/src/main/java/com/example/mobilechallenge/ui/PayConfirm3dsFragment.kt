@@ -27,10 +27,6 @@ class PayConfirm3dsFragment : Fragment() {
 
     companion object {
         private const val TAG = "PayConfirm3dsActivity"
-
-        @JvmStatic
-        fun newInstance() =
-            PayConfirm3dsFragment()
     }
 
     private fun loadConfirmUrl() {
