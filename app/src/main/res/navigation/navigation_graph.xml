@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/payFragment">
+
+    <fragment
+        android:id="@+id/payFragment"
+        android:name="com.example.mobilechallenge.ui.PayFragment"
+        android:label="PayFragment" >
+        <action
+            android:id="@+id/action_payFragment_to_payConfirm3dsFragment"
+            app:destination="@id/payConfirm3dsFragment"
+            app:enterAnim="@anim/slide_in_right_to_left"
+            app:exitAnim="@anim/slide_out_right_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/payConfirm3dsFragment"
+        android:name="com.example.mobilechallenge.ui.PayConfirm3dsFragment"
+        android:label="PayConfirm3dsFragment" >
+        <action
+            android:id="@+id/action_payConfirm3dsFragment_to_successFragment"
+            app:destination="@id/successFragment"
+            app:enterAnim="@anim/slide_in_right_to_left"
+            app:exitAnim="@anim/slide_out_right_to_left"
+            app:popUpTo="@id/payFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_payConfirm3dsFragment_to_failureFragment"
+            app:destination="@id/failureFragment"
+            app:enterAnim="@anim/slide_in_right_to_left"
+            app:exitAnim="@anim/slide_out_right_to_left"
+            app:popUpTo="@id/payFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.example.mobilechallenge.ui.SuccessFragment"
+        android:label="fragment_failure"
+        tools:layout="@layout/fragment_failure" />
+    <fragment
+        android:id="@+id/failureFragment"
+        android:name="com.example.mobilechallenge.ui.FailureFragment"
+        android:label="FailureFragment" />
+</navigation>

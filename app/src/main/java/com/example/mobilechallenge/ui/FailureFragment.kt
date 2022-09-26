@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mobilechallenge.R
 
+/***
+ * A fragment to show a failure message to user
+ */
 class FailureFragment : Fragment() {
 
     override fun onCreateView(

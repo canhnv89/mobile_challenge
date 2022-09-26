@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import com.example.mobilechallenge.R
 import com.example.mobilechallenge.api.ApiResult
 import com.example.mobilechallenge.api.ApiStatus
-import com.example.mobilechallenge.constant.FragmentNavi
 import com.example.mobilechallenge.model.CardInfo
 import com.example.mobilechallenge.payment.PaymentHelper
 
@@ -16,7 +15,6 @@ class MainViewModel : ViewModel() {
     private var cardInfo: CardInfo? = null
     private val isCardValidLiveData = MutableLiveData<Boolean>().apply { postValue(true) }
     private val isUiBusyLiveData = MutableLiveData<Boolean>().apply { postValue(false) }
-    private val navigator = MutableLiveData<FragmentNavi>()
     private var payConfirmUrl: String? = null
 
     companion object {
@@ -59,22 +57,5 @@ class MainViewModel : ViewModel() {
             isUiBusyLiveData.postValue(false)
             result
         }
-    }
-
-    fun getNavigatorLiveData(): LiveData<FragmentNavi> {
-        return navigator
-    }
-
-
-    fun loadConfirmFragment() {
-        navigator.postValue(FragmentNavi.PAY_CONFIRM_FRAGMENT)
-    }
-
-    fun loadSuccessFragment() {
-        navigator.postValue(FragmentNavi.SUCCESS_FRAGMENT)
-    }
-
-    fun loadFailureFragment() {
-        navigator.postValue(FragmentNavi.FAILURE_FRAGMENT)
     }
 }

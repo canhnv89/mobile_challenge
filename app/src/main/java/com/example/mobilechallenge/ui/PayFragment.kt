@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.example.mobilechallenge.R
 import com.example.mobilechallenge.api.ApiStatus
 import com.example.mobilechallenge.databinding.FragmentPayBinding
@@ -18,12 +21,23 @@ import com.example.mobilechallenge.utils.formatter.getPureNumber
 import com.example.mobilechallenge.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
+/**
+ * Fragment to input card info from user and submit a PayRequest via Server API
+ */
 class PayFragment : Fragment() {
     private lateinit var binding: FragmentPayBinding
     private lateinit var cardNumFormatter: CardNumFormatter
     private lateinit var expiryDateFormatter: ExpiryDateFormatter
     private lateinit var cvvFormatter: CvvFormatter
     private lateinit var viewModel: MainViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            requireActivity().finish()
+        }
+        callback.isEnabled = true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +47,7 @@ class PayFragment : Fragment() {
         cardNumFormatter = CardNumFormatter(binding.cardNumberEditText)
         expiryDateFormatter = ExpiryDateFormatter(binding.cardDateEditText)
         cvvFormatter = CvvFormatter(binding.cardCVCEditText)
+
         lifecycleScope.launchWhenCreated {
             viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
             binding.viewModel = viewModel
@@ -49,13 +64,18 @@ class PayFragment : Fragment() {
         val cardNum = binding.cardNumberEditText.getPureNumber()
         val expiryDate = binding.cardDateEditText.text.toString()
         val cvv = binding.cardCVCEditText.text.toString()
+        //Update card with inputted info
         viewModel.updateCardInfo(cardNum, expiryDate, cvv)
+        //If card is valid, submit the payment
         if (viewModel.getCardInfo()?.isValid() == true) {
             lifecycleScope.launch {
                 val result = viewModel.submitPay(requireActivity())
                 if (result.status == ApiStatus.SUCCESS && result.data != null) {
-                    viewModel.loadConfirmFragment()
+                    //Success path
+                    //viewModel.loadConfirmFragment()
+                    findNavController().navigate(R.id.action_payFragment_to_payConfirm3dsFragment)
                 } else {
+                    //Error path
                     showErrorDialog(result.message)
                 }
             }
@@ -68,8 +88,6 @@ class PayFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "PayFragment"
-
         @JvmStatic
         fun newInstance() =
             PayFragment()
