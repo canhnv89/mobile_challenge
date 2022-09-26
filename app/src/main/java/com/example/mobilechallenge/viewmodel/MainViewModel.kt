@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.mobilechallenge.R
 import com.example.mobilechallenge.api.ApiResult
 import com.example.mobilechallenge.api.ApiStatus
-import com.example.mobilechallenge.constant.FragmentNavigator
+import com.example.mobilechallenge.constant.FragmentNavi
 import com.example.mobilechallenge.model.CardInfo
 import com.example.mobilechallenge.payment.PaymentHelper
 
@@ -16,7 +16,7 @@ class MainViewModel : ViewModel() {
     private var cardInfo: CardInfo? = null
     private val isCardValidLiveData = MutableLiveData<Boolean>().apply { postValue(true) }
     private val isUiBusyLiveData = MutableLiveData<Boolean>().apply { postValue(false) }
-    private val navigator = MutableLiveData<FragmentNavigator>()
+    private val navigator = MutableLiveData<FragmentNavi>()
     private var payConfirmUrl: String? = null
 
     companion object {
@@ -61,20 +61,20 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun getNavigatorLiveData(): LiveData<FragmentNavigator> {
+    fun getNavigatorLiveData(): LiveData<FragmentNavi> {
         return navigator
     }
 
 
     fun loadConfirmFragment() {
-        navigator.postValue(FragmentNavigator.PAY_CONFIRM_FRAGMENT)
+        navigator.postValue(FragmentNavi.PAY_CONFIRM_FRAGMENT)
     }
 
     fun loadSuccessFragment() {
-        navigator.postValue(FragmentNavigator.SUCCESS_FRAGMENT)
+        navigator.postValue(FragmentNavi.SUCCESS_FRAGMENT)
     }
 
     fun loadFailureFragment() {
-        navigator.postValue(FragmentNavigator.FAILURE_FRAGMENT)
+        navigator.postValue(FragmentNavi.FAILURE_FRAGMENT)
     }
 }

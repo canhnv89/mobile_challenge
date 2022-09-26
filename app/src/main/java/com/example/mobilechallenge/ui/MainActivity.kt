@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.mobilechallenge.R
-import com.example.mobilechallenge.constant.FragmentNavigator
+import com.example.mobilechallenge.constant.FragmentNavi
 import com.example.mobilechallenge.databinding.ActivityMainBinding
 import com.example.mobilechallenge.viewmodel.MainViewModel
 
@@ -21,14 +21,8 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "MainActivity"
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate: $savedInstanceState")
         setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
@@ -49,16 +43,16 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun navigateToFragment(navigator: FragmentNavigator) {
+    private fun navigateToFragment(navigator: FragmentNavi) {
         Log.d(TAG, "navigateToFragment: $navigator")
         val transaction = supportFragmentManager.beginTransaction().setCustomAnimations(
             R.anim.slide_in_right_to_left,
             R.anim.slide_out_right_to_left
         )
         when (navigator) {
-            FragmentNavigator.PAY_CONFIRM_FRAGMENT -> transaction.replace(R.id.root, PayConfirm3dsFragment.newInstance()).commit()
-            FragmentNavigator.SUCCESS_FRAGMENT -> transaction.replace(R.id.root, SuccessFragment.newInstance()).commit()
-            FragmentNavigator.FAILURE_FRAGMENT -> transaction.replace(R.id.root, FailureFragment.newInstance()).commit()
+            FragmentNavi.PAY_CONFIRM_FRAGMENT -> transaction.replace(R.id.root, PayConfirm3dsFragment.newInstance()).commit()
+            FragmentNavi.SUCCESS_FRAGMENT -> transaction.replace(R.id.root, SuccessFragment.newInstance()).commit()
+            FragmentNavi.FAILURE_FRAGMENT -> transaction.replace(R.id.root, FailureFragment.newInstance()).commit()
             else -> {}
         }
     }
