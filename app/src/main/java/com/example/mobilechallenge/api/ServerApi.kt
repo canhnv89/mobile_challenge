@@ -8,7 +8,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
+/**
+ * Interface of ServerAPI which is implemented by Retrofit
+ */
 interface ServerApi {
+
     @POST("/pay")
     suspend fun submitPay(
         @Body requestBody: PayRequest

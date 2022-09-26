@@ -6,6 +6,11 @@ import com.example.mobilechallenge.model.CardInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * A helper class to submit a payment request to ServerAPI.
+ * This class will transform a CardInfo object into a PayRequest which defined
+ * by in Restful API
+ */
 class PaymentHelper {
     companion object {
         const val SUCCESS_URL = "https://success.com"
