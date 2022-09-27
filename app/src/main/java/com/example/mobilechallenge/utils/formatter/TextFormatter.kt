@@ -6,6 +6,9 @@ import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import androidx.annotation.VisibleForTesting
+import com.example.mobilechallenge.R
+import kotlin.properties.Delegates
 
 fun EditText.getPureNumber(): String {
     return TextFormatter.getPureNumber(text.toString())
@@ -15,7 +18,7 @@ fun Editable.getPureNumber(): String {
     return TextFormatter.getPureNumber(toString())
 }
 
-abstract class TextFormatter(val editText: EditText) {
+abstract class TextFormatter(private var editText: EditText) {
 
     var current = " "
     var maxLength = 0
@@ -59,10 +62,17 @@ abstract class TextFormatter(val editText: EditText) {
     abstract fun format(s: Editable?)
     abstract fun isValid(s: Editable?): Boolean
 
-    private fun setColorByValidity() {
+    @VisibleForTesting
+    fun setColorByValidity() {
         val color = if (isValid(editText.text)) VALID_COLOR else ERROR_COLOR
         editText.setTextColor(color)
     }
+
+    @VisibleForTesting
+    fun getValidColor() = VALID_COLOR
+
+    @VisibleForTesting
+    fun getErrorColor() = ERROR_COLOR
 
     protected fun format(s: Editable?, textPattern: TextPattern?) {
         s?.let {

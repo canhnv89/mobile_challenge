@@ -2,6 +2,7 @@ package com.example.mobilechallenge.utils.formatter
 
 import android.text.Editable
 import android.widget.EditText
+import com.example.mobilechallenge.model.CardType
 
 /**
  * Formatter for Card number EditText. This will format the inputted number basing on
@@ -9,6 +10,8 @@ import android.widget.EditText
  * prefix and pattern
  */
 class CardNumFormatter(editText: EditText) : TextFormatter(editText) {
+
+    var cardType: CardType = CardType.UNKNOWN
 
     companion object {
         const val VISA = "4"
@@ -31,12 +34,18 @@ class CardNumFormatter(editText: EditText) : TextFormatter(editText) {
             if (s.isEmpty()) {
                 current = s.toString()
             } else {
-                val textPattern = if (s.indexOf(VISA) == 0 || s.indexOf(MASTER) == 0) {
-                    MASTER_VISA_PATTERN
+                var textPattern = UNKNOWN_PATTERN
+                if (s.indexOf(VISA) == 0) {
+                    textPattern = MASTER_VISA_PATTERN
+                    cardType = CardType.VISA
+                } else if (s.indexOf(MASTER) == 0) {
+                    textPattern = MASTER_VISA_PATTERN
+                    cardType = CardType.MASTER
                 } else if (s.indexOf(AMEX_1) == 0 || s.indexOf(AMEX_2) == 0) {
-                    AMEX_PATTERN
+                    textPattern = AMEX_PATTERN
+                    cardType = CardType.AMEX
                 } else {
-                    UNKNOWN_PATTERN
+                    cardType = CardType.UNKNOWN
                 }
                 format(s, textPattern)
             }
