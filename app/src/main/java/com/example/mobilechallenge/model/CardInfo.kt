@@ -22,7 +22,7 @@ data class CardInfo(var cardNum: String, var expiryDate: String, var cvv: String
      */
     fun getExpiryMonth(): String {
         val parts = expiryDate.split("/")
-        if (parts.isNotEmpty()) return parts[0]
+        if (parts.size > 1) return parts[0]
         return ""
     }
 
