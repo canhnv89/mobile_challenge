@@ -2,17 +2,21 @@ package com.example.mobilechallenge
 
 import android.content.Context
 import android.widget.EditText
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import com.example.mobilechallenge.model.CardType
 import com.example.mobilechallenge.utils.formatter.CardNumFormatter
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class CardNumFormatterTest {
+    @get: Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
     private lateinit var cardNumEditText: EditText
     private lateinit var cardNumFormatter: CardNumFormatter
     private lateinit var context: Context
@@ -59,17 +63,17 @@ class CardNumFormatterTest {
         //Visa formatted text
         cardNumEditText.setText(validVisaCardNum)
         assertEquals(validVisaCardNumFormatted, cardNumEditText.text.toString())
-        assertEquals(CardType.VISA, cardNumFormatter.cardType)
+        assertEquals(CardType.VISA, cardNumFormatter.getCardTypeLiveData().value)
 
         //Master formatted text
         cardNumEditText.setText(validMasterCardNum)
         assertEquals(validMasterCardNumFormatted, cardNumEditText.text.toString())
-        assertEquals(CardType.MASTER, cardNumFormatter.cardType)
+        assertEquals(CardType.MASTER, cardNumFormatter.getCardTypeLiveData().value)
 
         //Amex formatted text
         cardNumEditText.setText(amexCardNum)
         assertEquals(amexCardNumFormatted, cardNumEditText.text.toString())
-        assertEquals(CardType.AMEX, cardNumFormatter.cardType)
+        assertEquals(CardType.AMEX, cardNumFormatter.getCardTypeLiveData().value)
     }
 
 }
