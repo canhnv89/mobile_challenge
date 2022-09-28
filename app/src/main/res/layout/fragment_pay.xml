@@ -46,7 +46,7 @@
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:background="@drawable/bg_card_number_edit_text"
-                android:drawableEnd="@drawable/ic_card_number"
+                android:drawableEnd="@{context.getDrawable(viewModel.cardIconLiveData)}"
                 android:hint="@string/card_number_hint"
                 android:imeOptions="actionNext"
                 android:inputType="number"

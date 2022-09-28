@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.mobilechallenge.R
 import com.example.mobilechallenge.api.ApiStatus
@@ -30,10 +30,11 @@ class PayFragment : Fragment() {
     private lateinit var expiryDateFormatter: ExpiryDateFormatter
     private lateinit var cvvFormatter: CvvFormatter
     private lateinit var viewModel: MainViewModel
+    private lateinit var callback: OnBackPressedCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+        callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             requireActivity().finish()
         }
         callback.isEnabled = true
@@ -54,6 +55,9 @@ class PayFragment : Fragment() {
             binding.lifecycleOwner = requireActivity()
             binding.payButton.setOnClickListener {
                 onPayClicked()
+            }
+            cardNumFormatter.getCardTypeLiveData().observe(viewLifecycleOwner) {
+                viewModel.setCardType(it)
             }
         }
 

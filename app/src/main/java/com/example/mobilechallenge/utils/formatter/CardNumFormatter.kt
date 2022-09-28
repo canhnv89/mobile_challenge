@@ -2,6 +2,8 @@ package com.example.mobilechallenge.utils.formatter
 
 import android.text.Editable
 import android.widget.EditText
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.mobilechallenge.model.CardType
 
 /**
@@ -11,7 +13,7 @@ import com.example.mobilechallenge.model.CardType
  */
 class CardNumFormatter(editText: EditText) : TextFormatter(editText) {
 
-    var cardType: CardType = CardType.UNKNOWN
+    private var cardType = MutableLiveData<CardType>().apply { postValue(CardType.UNKNOWN) }
 
     companion object {
         const val VISA = "4"
@@ -37,20 +39,22 @@ class CardNumFormatter(editText: EditText) : TextFormatter(editText) {
                 var textPattern = UNKNOWN_PATTERN
                 if (s.indexOf(VISA) == 0) {
                     textPattern = MASTER_VISA_PATTERN
-                    cardType = CardType.VISA
+                    cardType.postValue(CardType.VISA)
                 } else if (s.indexOf(MASTER) == 0) {
                     textPattern = MASTER_VISA_PATTERN
-                    cardType = CardType.MASTER
+                    cardType.postValue(CardType.MASTER)
                 } else if (s.indexOf(AMEX_1) == 0 || s.indexOf(AMEX_2) == 0) {
                     textPattern = AMEX_PATTERN
-                    cardType = CardType.AMEX
+                    cardType.postValue(CardType.AMEX)
                 } else {
-                    cardType = CardType.UNKNOWN
+                    cardType.postValue(CardType.UNKNOWN)
                 }
                 format(s, textPattern)
             }
         }
     }
+
+    fun getCardTypeLiveData(): LiveData<CardType> = cardType
 
     override fun isValid(s: Editable?): Boolean {
         if (s.isNullOrEmpty()) return false

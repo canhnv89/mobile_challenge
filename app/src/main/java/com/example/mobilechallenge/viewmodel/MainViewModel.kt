@@ -9,6 +9,7 @@ import com.example.mobilechallenge.R
 import com.example.mobilechallenge.api.ApiResult
 import com.example.mobilechallenge.api.ApiStatus
 import com.example.mobilechallenge.model.CardInfo
+import com.example.mobilechallenge.model.CardType
 import com.example.mobilechallenge.payment.PaymentHelper
 
 class MainViewModel : ViewModel() {
@@ -16,6 +17,8 @@ class MainViewModel : ViewModel() {
     private val isCardValidLiveData = MutableLiveData<Boolean>().apply { postValue(true) }
     private val isUiBusyLiveData = MutableLiveData<Boolean>().apply { postValue(false) }
     private var payConfirmUrl: String? = null
+    private val cardTypeLiveData =
+        MutableLiveData<Int>().apply { value = R.drawable.ic_card_number}
 
     companion object {
         private const val TAG = "MainViewModel"
@@ -39,6 +42,17 @@ class MainViewModel : ViewModel() {
     }
 
     fun getPayConfirmUrl() = payConfirmUrl
+
+    fun setCardType(cardType: CardType) {
+        when (cardType) {
+            CardType.VISA -> cardTypeLiveData.postValue(R.drawable.visa)
+            CardType.MASTER -> cardTypeLiveData.postValue(R.drawable.master)
+            CardType.AMEX -> cardTypeLiveData.postValue(R.drawable.amex)
+            else -> cardTypeLiveData.postValue(R.drawable.ic_card_number)
+        }
+    }
+
+    fun getCardIconLiveData(): LiveData<Int> = cardTypeLiveData
 
     suspend fun submitPay(context: Context): ApiResult<String> {
         val submitCardInfo = cardInfo
