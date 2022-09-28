@@ -24,15 +24,13 @@
             app:destination="@id/successFragment"
             app:enterAnim="@anim/slide_in_right_to_left"
             app:exitAnim="@anim/slide_out_right_to_left"
-            app:popUpTo="@id/payFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/payFragment"/>
         <action
             android:id="@+id/action_payConfirm3dsFragment_to_failureFragment"
             app:destination="@id/failureFragment"
             app:enterAnim="@anim/slide_in_right_to_left"
             app:exitAnim="@anim/slide_out_right_to_left"
-            app:popUpTo="@id/payFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/payFragment"/>
     </fragment>
     <fragment
         android:id="@+id/successFragment"
