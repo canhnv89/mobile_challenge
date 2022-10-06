@@ -1,6 +1,7 @@
 package com.example.mobilechallenge.ui
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -87,6 +88,8 @@ class PayFragment : Fragment() {
 
     private fun showErrorDialog(message: String?) {
         AlertDialog.Builder(requireActivity())
-            .setMessage(getString(R.string.pay_error_message, message)).show()
+            .setMessage(getString(R.string.pay_error_message, message))
+            .setPositiveButton(android.R.string.ok) { _: DialogInterface, _: Int ->
+            }.show()
     }
 }

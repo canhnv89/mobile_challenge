@@ -28,11 +28,15 @@ class PaymentHelper {
                 SUCCESS_URL,
                 FAILURE_URL
             )
-            val response = api.submitPay(payRequest)
-            if (response.isSuccessful) {
-                return@withContext ApiResult.Success(response.body()?.url)
-            } else {
-                return@withContext ApiResult.Error(response.message())
+            try {
+                val response = api.submitPay(payRequest)
+                if (response.isSuccessful) {
+                    return@withContext ApiResult.Success(response.body()?.url)
+                } else {
+                    return@withContext ApiResult.Error(response.message())
+                }
+            } catch (ex: Exception) {
+                return@withContext ApiResult.Error(ex.toString())
             }
         }
     }
