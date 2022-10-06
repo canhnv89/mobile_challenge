@@ -27,7 +27,7 @@ class CvvFormatterTest {
     }
 
     @Test
-    fun expiry_date_formatter_color_test() {
+    fun cvv_formatter_color_test() {
         //Invalid date
         cvvEditText.setText(invalidCvvMissingLength)
         assertEquals(false, cvvFormatter.isValid(cvvEditText.text))

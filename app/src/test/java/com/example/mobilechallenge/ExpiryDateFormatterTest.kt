@@ -49,7 +49,7 @@ class ExpiryDateFormatterTest {
     }
 
     @Test
-    fun card_num_formatter_text_test() {
+    fun `check if expiry date is formatted`() {
         //Amex formatted text
         expiryDateEditText.setText(validDate)
         assertEquals(validDateFormatted, expiryDateEditText.text.toString())
