@@ -66,6 +66,9 @@ class PayFragment : Fragment() {
     }
 
     private fun onPayClicked() {
+        cardNumFormatter.setColorByValidity()
+        expiryDateFormatter.setColorByValidity()
+        cvvFormatter.setColorByValidity()
         val cardNum = binding.cardNumberEditText.getPureNumber()
         val expiryDate = binding.cardDateEditText.text.toString()
         val cvv = binding.cardCVCEditText.text.toString()
@@ -84,6 +87,7 @@ class PayFragment : Fragment() {
                 }
             }
         }
+
     }
 
     private fun showErrorDialog(message: String?) {

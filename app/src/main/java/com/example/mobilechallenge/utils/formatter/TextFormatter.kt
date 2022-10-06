@@ -7,8 +7,6 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import androidx.annotation.VisibleForTesting
-import com.example.mobilechallenge.R
-import kotlin.properties.Delegates
 
 fun EditText.getPureNumber(): String {
     return TextFormatter.getPureNumber(text.toString())
@@ -60,9 +58,12 @@ abstract class TextFormatter(private var editText: EditText) {
     }
 
     abstract fun format(s: Editable?)
-    abstract fun isValid(s: Editable?): Boolean
+    protected abstract fun isValid(s: Editable?): Boolean
 
-    @VisibleForTesting
+    fun isValid(): Boolean {
+        return isValid(editText.text)
+    }
+
     fun setColorByValidity() {
         val color = if (isValid(editText.text)) VALID_COLOR else ERROR_COLOR
         editText.setTextColor(color)
